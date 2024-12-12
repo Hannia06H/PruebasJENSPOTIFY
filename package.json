@@ -1,13 +1,16 @@
 {
-  "name": "prueba-spotify-api",
+  "name": "rtx-3050",
   "version": "1.0.0",
-  "description": "Prueba con la API de Spotify",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1"
-  }
+    "spotify-web-api-node": "^5.0.2"
+  },
+  "devDependencies": {},
+  "description": ""
 }
-
