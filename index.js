@@ -1,29 +1,27 @@
 const SpotifyWebApi = require('spotify-web-api-node');
 
-// Configurar credenciales de Spotify
+// Inicializa el cliente de Spotify con tus credenciales
 const spotifyApi = new SpotifyWebApi({
-    clientId: 'TU_CLIENT_ID',   // Sustituir por tu Client ID
-    clientSecret: 'TU_CLIENT_SECRET', // Sustituir por tu Client Secret
-    redirectUri: 'http://localhost:8888/callback'
+  clientId: 'TU_CLIENT_ID',
+  clientSecret: 'TU_CLIENT_SECRET',
+  redirectUri: 'TU_REDIRECT_URI'
 });
 
-// Obtener el token de acceso
+// Autenticación con Spotify
 spotifyApi.clientCredentialsGrant().then(
-    function(data) {
-        console.log('El token de acceso ha sido adquirido: ', data.body['access_token']);
-        spotifyApi.setAccessToken(data.body['access_token']);
-
-        // Hacer una búsqueda de una pista
-        spotifyApi.searchTracks('Shape of You').then(
-            function(data) {
-                console.log('Pista encontrada:', data.body.tracks.items[0].name);
-            },
-            function(err) {
-                console.error('Error al buscar la pista: ', err);
-            }
-        );
-    },
-    function(err) {
-        console.error('Error al obtener el token de acceso:', err);
-    }
+  function(data) {
+    console.log('La autenticación fue exitosa. El token de acceso es ' + data.body['access_token']);
+    spotifyApi.setAccessToken(data.body['access_token']);
+    
+    // Obtener información de una pista de Spotify
+    spotifyApi.getTrack('3n3Ppam7vgaVa1iaRUc9Lp') // Aquí usas el ID de una pista de Spotify
+      .then(function(data) {
+        console.log('Información de la pista:', data.body);
+      }, function(err) {
+        console.log('Error al obtener la pista:', err);
+      });
+  },
+  function(err) {
+    console.log('Algo salió mal al obtener el token de acceso:', err);
+  }
 );
